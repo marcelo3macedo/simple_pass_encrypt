@@ -1,8 +1,8 @@
 import random
 import getpass
+import pyperclip
 
 def generate_encryption_key(password):
-    """Generate a pseudo-random key based on the password."""
     random.seed(password)
     characters = (
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -15,7 +15,6 @@ def generate_encryption_key(password):
     return dict(zip(characters, shuffled))
 
 def encrypt_text(text, key, password):
-    """Encrypt the text using the provided key and add random characters for increased length."""
     random.seed(password)
     encrypted = []
     characters_pool = list(key.values())
@@ -30,11 +29,10 @@ def main():
     text = input("Enter the text to encrypt: ")
     
     key = generate_encryption_key(password)
-    
     encrypted_text = encrypt_text(text, key, password)
     
-    print("\nEncrypted text:")
-    print(encrypted_text)
+    pyperclip.copy(encrypted_text)
+    print("\n✅ Encrypted text copied to clipboard. Just press Ctrl+V to paste.")
 
 if __name__ == "__main__":
     main()
